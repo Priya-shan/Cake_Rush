@@ -1,5 +1,8 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Open+Sans&display=swap');
 html {
   font-size: 14px;
+
 }
 
 @media (min-width: 768px) {
@@ -14,5 +17,72 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+:root {
+    --light-peach: #ffe5ed;
+    --dark-peach: #ffc6d7;
+}
+nav {
+    padding: 1px !important;
+    background-color: var(--light-peach) !important;
+    border-bottom: 3px var(--dark-peach) solid !important;
+}
+.style_nav_item {
+    
+    font-family: 'Caveat', cursive;
+    font-size: 25px;
+    margin:0px 50px;
+    height:50px;
+}
+a{
+    text-decoration:none !important;
+    color:black;
+}
+a:hover{
+    text-decoration:none;
+    color:black
+}
+.form-control {
+    border: 1px var(--dark-peach) solid;
+    border-radius:73px;
+    margin: 8px 0px;
+}
+
+.form-control:focus {
+        border-color: var(--dark-peach);
+        box-shadow: 0 0 0 0.10rem var(--dark-peach);
+        background-color: white;
+        margin: 8px 0px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    background-color: white !important;
+}
+.dark-button {
+    border: 2px var(--dark-peach) solid;
+    background-color: var(--light-peach);
+    border-radius: 73px;
+    margin: 8px 0px;
+    width:50px;
+}
+.light-button {
+    border: 2px var(--dark-peach) solid;
+    background-color:white;
+    border-radius: 73px;
+    margin: 8px 0px;
+    width:100px;
+}
+button:focus {
+    border-color: var(--dark-peach);
+    box-shadow: 0 0 0 0.10rem var(--dark-peach);
+    background-color: white;
+    margin: 8px 0px;
+}
+hr {
+    background-color: var(--dark-peach);
+    border: 1px var(--dark-peach) solid;
 }

@@ -13,6 +13,18 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\login_page_svg.png",
+      "PackagePath": "staticwebassets\\images\\login_page_svg.png"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\register_page_svg.png",
+      "PackagePath": "staticwebassets\\images\\register_page_svg.png"
+    },
+    {
       "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
