@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Cake_Rush.props" />
+</Project>
