@@ -1,0 +1,105 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<head>
+    <style>
+       
+        main{
+            padding:0px !important;
+        }
+        body{
+            overflow:hidden;
+            margin:0px;
+        }
+        .container{
+            margin:0px;
+            margin-right:0px;
+        }
+        .side-bar {
+            padding-top:20px;
+            background-color: var(--light-peach);
+            height:100vh;
+            border-color: var(--dark-peach);
+            box-shadow: 0 0 0 0.10rem var(--dark-peach);
+        }
+
+        .main-content {
+            max-height: 510px;
+            overflow-y: auto;
+        }
+        
+        .side-bar-items{
+            font-weight:bold;
+            border: 2px var(--dark-peach) solid; 
+            /*border-color: var(--dark-peach);
+            box-shadow: 0 0 0 0.10rem var(--dark-peach);*/
+            text-align:center;
+            background-color:white;
+            border-radius:30px;
+            padding:10px 20px;
+            margin: 10px 0px;
+            margin-left:40px;
+            width:200px
+        }
+
+        button:focus {
+            border-color: var(--dark-peach);
+            box-shadow: 0 0 0 0.10rem var(--dark-peach);
+        }
+        .active-side-bar-items{
+            background-color:  var(--light-peach);
+        }
+    </style>
+</head>
+<div class="row">
+    <div class="col-xl-3 side-bar">
+
+        <div class="row">
+            <div class="col-xl-12">
+                <button class="side-bar-items active-side-bar-items" onclick="location.href='@Url.Action("Index", "Admin")'">
+                    Account
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items"  onclick="location.href='@Url.Action("Orders", "Admin")'">
+                    Orders Recieved
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items" onclick="location.href='@Url.Action("AddProducts", "Admin")'">
+                    Add Products
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items"  onclick="location.href='@Url.Action("Payments", "Admin")'">
+                    Payments
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items"  onclick="location.href='@Url.Action("AddAdmin", "Admin")'">
+                    Add Admin
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items"  onclick="location.href='@Url.Action("ChangePassword", "Admin")'">
+                    Change Password
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="side-bar-items">Logout</button>
+                </form>
+                @*<button class="side-bar-items" onclick="location.href='@Url.Action("ChangePassword", "Admin")'">
+                    Logout
+                </button>*@
+            </div>
+           
+        </div>
+    </div>
+    <div class="col-xl-9 main-content">
+        <h1>
+        </h1>
+    </div>
+</div>
