@@ -1,8 +1,133 @@
-﻿@{
+﻿@model IEnumerable<Cake_Rush.Models.ProductModel>
+@{
     ViewData["Title"] = "Home Page";
 }
+<head>
+    <style>
+        .row {
+            --bs-gutter-x: 0px;
+        }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        body {
+        }
+
+        .container {
+            padding: 0px !important;
+        }
+
+        .banner-small {
+            width: 200px;
+            height: 180px;
+        }
+
+        .banner {
+            width: 200px;
+            height: 180px;
+        }
+
+        h3 {
+        }
+    </style>
+
+</head>
+<div>
+    <img class="d-block w-100" style="height:260px" src="~/images/carousel_1_v2.png">
 </div>
+<div class="row">
+    <div class="col-xl-3 d-flex justify-content-center align-items-center">
+        <img src="~/images/banner_bdaycake.png" class="banner-small">
+
+    </div>
+    <div class="col-xl-3 d-flex justify-content-center align-items-center">
+        <img src="~/images/banner_cupcake.png" class="banner-small">
+    </div>
+    <div class="col-xl-3 d-flex justify-content-center align-items-center">
+        <img style="margin:10px" src="~/images/banner_bakeditems.png" class="banner">
+    </div>
+    <div class="col-xl-3 d-flex justify-content-center align-items-center" style="padding-right:0px;">
+        <img style="margin:10px; margin-right:0px;" src="~/images/banner_snacks.png" class="banner">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-3 d-flex justify-content-center align-items-center">
+        <h2 class="style_nav_item" style="font-size:30px">Birthday Cakes</h2>
+
+    </div>
+    <div class="col-xl-3 d-flex justify-content-center align-items-center">
+        <h2 class="style_nav_item" style="font-size:30px">Cup Cakes</h2>
+    </div>
+    <div class="col-xl-3 d-flex justify-content-center align-items-center">
+        <h2 class="style_nav_item" style="font-size:30px">Baked Items</h2>
+    </div>
+    <div class="col-xl-3 d-flex justify-content-center align-items-center" style="padding-right:0px;">
+        <h2 class="style_nav_item" style="font-size:30px">Cookies & Snacks</h2>
+    </div>
+</div>
+
+<form asp-action="" style="margin:30px 25px;">
+    <div class="row">
+        <div class="col-xl-2">
+        </div>
+        <div class="col-xl-8">
+            <div class="form-group">
+                <div class="input-group">
+                    <input name="searchBar" class="form-control" style="background-color:var(--light-peach)" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn form-control" style="border-radius:0px 73px 73px 0px; background-color:var(--light-peach)">
+                            <i class="material-icons">search</i>
+                        </button>
+                    </div>
+                </div>
+                <span name="searchBar" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form asp-action="" style="margin-left:25px;" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-xl-3">
+            <select id="category" name="category" class="form-control text-muted" style="width:230px;background-color:var(--light-peach);text-align:center">
+                <option value="" class="form-control" selected disabled>Select a category</option>
+                @foreach (var item in ViewBag.categoryNameList)
+                {
+                    <option value=@item.categoryId>@item.categoryName</option>
+                }
+            </select>
+        </div>
+        <div class="col-xl-3">
+            <input name="minPrice" style="width:230px;" class="form-control" placeholder="Minimum Price..." />
+                <span name="minPrice"  class="text-danger"></span>
+        </div>
+        <div class="col-xl-3">
+            <div class="form-group">
+                <input name="minPrice" style="width:230px;" class="form-control" placeholder="Maximum Price..." />
+                <span name="minPrice" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-xl-3">
+            <div class="form-group">
+                <input type="submit" value="Apply Filter" class="w-70 btn dark-button" style="width:230px;" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row" style="margin-top:30px">
+@foreach (var item in ViewBag.productModelList)
+{
+        <div class="col-xl-3 d-flex justify-content-center align-items-center" style="margin:10px 0px">
+            <div class="card" style="width:274px;border-radius:30px;border: 2px var(--dark-peach) solid;">
+                <a asp-action="Details" asp-controller="Product" asp-route-id="@item.productId">
+                <img class="card-img-top" style="border-radius:28px 28px 0px 0px;height:180px;width:270px" src="~/images/Products/@item.imageid" alt="Card image cap">
+                </a>
+                <div class="card-body" style="border-radius:0px 0px 30px 30px;background-color: var(--light-peach); width:auto">
+                    <p class="card-text" style="text-align:center;font-weight:bold">@item.productName - ₹@item.price</p>
+                </div>
+            </div>
+        </div>
+}
+</div>
+
