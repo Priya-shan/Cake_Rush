@@ -1,6 +1,7 @@
 ﻿using Cake_Rush.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Net;
 
 namespace Cake_Rush.Controllers
 {
@@ -13,8 +14,16 @@ namespace Cake_Rush.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ApiRequests<CategoryModel> obj = new ApiRequests<CategoryModel>();
+            List<CategoryModel> modelList = new List<CategoryModel>();
+            modelList = await obj.getRequest("api/Category");
+            ViewBag.categoryNameList = modelList;
+
+            ApiRequests<ProductModel> obj1 = new ApiRequests<ProductModel>();
+            List<ProductModel> productModelList =await obj1.getRequest("api/Product");
+            ViewBag.ProductModelList = productModelList;
             return View();
         }
 
