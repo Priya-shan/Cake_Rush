@@ -6,5 +6,7 @@
         public int productId { get; set; }
         public string categoryName { get; set; }
         public int price { get; set; }
+
+        public ProductModel Product { get; set; }
     }
 }
