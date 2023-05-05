@@ -31,11 +31,11 @@ that can be delivered to their doorstep or picked up at the nearest store.
 <img src="https://user-images.githubusercontent.com/67195594/236443314-32f64c01-b6a4-443c-a38b-1bd4b8d51664.png" width=700px>
 
 ## Tech Stack Used
-HTML CSS JS
-Bootstrap
-JQuery Ajax
-Asp.Net MVC
-Asp.Net Web API
-Microsoft Server SQL
+HTML, CSS, JS,
+Bootstrap,
+JQuery, Ajax,
+Asp.Net MVC,
+Asp.Net Web API,
+Microsoft Server SQL.
 
 
