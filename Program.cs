@@ -21,7 +21,7 @@ namespace Cake_Rush
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
-
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -36,6 +36,7 @@ namespace Cake_Rush
                 app.UseHsts();
             }
 
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

@@ -278,3 +278,5 @@ C:\Users\HP\source\Cake_Rush\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Dra
 C:\Users\HP\source\Cake_Rush\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\HP\source\Cake_Rush\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\HP\source\Cake_Rush\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\HP\source\Cake_Rush\bin\Debug\net6.0\SendGrid.dll
+C:\Users\HP\source\Cake_Rush\bin\Debug\net6.0\StarkbankEcdsa.dll

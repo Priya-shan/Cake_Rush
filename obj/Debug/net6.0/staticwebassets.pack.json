@@ -13,28 +13,104 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-Cheese cake_768693.png",
-      "PackagePath": "staticwebassets\\images\\Products\\Product-Cheese cake_768693.png"
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-Cheese cake_528246.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-Cheese cake_528246.png"
     },
     {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-Choco Truffle_675481.png",
-      "PackagePath": "staticwebassets\\images\\Products\\Product-Choco Truffle_675481.png"
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-Choco Truffle_340614.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-Choco Truffle_340614.png"
     },
     {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-Fruit Cake_719289.png",
-      "PackagePath": "staticwebassets\\images\\Products\\Product-Fruit Cake_719289.png"
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-Choco Truffle_657914.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-Choco Truffle_657914.png"
     },
     {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-Strawberry Donut_846744.png",
-      "PackagePath": "staticwebassets\\images\\Products\\Product-Strawberry Donut_846744.png"
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-Fruit Cake_542818.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-Fruit Cake_542818.png"
     },
     {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-brownie_586893.png",
-      "PackagePath": "staticwebassets\\images\\Products\\Product-brownie_586893.png"
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-Fruit Cake_739944.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-Fruit Cake_739944.png"
     },
     {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-stawberry cupcake_465841.png",
-      "PackagePath": "staticwebassets\\images\\Products\\Product-stawberry cupcake_465841.png"
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-Strawberry Donut_518170.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-Strawberry Donut_518170.png"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-brownie_848006.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-brownie_848006.png"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-cookies_299409.jpg",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-cookies_299409.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-cookies_519269.jpg",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-cookies_519269.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-cookies_595125.jpg",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-cookies_595125.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-cookies_676730.jpg",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-cookies_676730.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-cookies_776077.jpg",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-cookies_776077.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-cookies_780027.jpg",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-cookies_780027.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-cookies_884610.jpg",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-cookies_884610.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-cookies_948903.jpg",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-cookies_948903.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-jimin cake_918369.jpg",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-jimin cake_918369.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-jimin cake_960246.jpg",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-jimin cake_960246.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-pan_472416.jfif",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-pan_472416.jfif"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-sample_348338.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-sample_348338.png"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-stawberry cupcake_798026.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-stawberry cupcake_798026.png"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-white forest_322607.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-white forest_322607.png"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-white forest_509396.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-white forest_509396.png"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-white forest_628668.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-white forest_628668.png"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\Products\\Product-white forest_892251.png",
+      "PackagePath": "staticwebassets\\images\\Products\\Product-white forest_892251.png"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\User_Profile.png",
+      "PackagePath": "staticwebassets\\images\\User_Profile.png"
     },
     {
       "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\banner_bakeditems.png",
@@ -69,10 +145,6 @@
       "PackagePath": "staticwebassets\\images\\carousel_3.png"
     },
     {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\jimin cake_910280.jpg",
-      "PackagePath": "staticwebassets\\images\\jimin cake_910280.jpg"
-    },
-    {
       "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\login_page_svg.png",
       "PackagePath": "staticwebassets\\images\\login_page_svg.png"
     },
@@ -81,52 +153,8 @@
       "PackagePath": "staticwebassets\\images\\logo.png"
     },
     {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\pan_209965.jfif",
-      "PackagePath": "staticwebassets\\images\\pan_209965.jfif"
-    },
-    {
       "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\register_page_svg.png",
       "PackagePath": "staticwebassets\\images\\register_page_svg.png"
-    },
-    {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\sample_175409.png",
-      "PackagePath": "staticwebassets\\images\\sample_175409.png"
-    },
-    {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\sample_306134.png",
-      "PackagePath": "staticwebassets\\images\\sample_306134.png"
-    },
-    {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\sample_503451.png",
-      "PackagePath": "staticwebassets\\images\\sample_503451.png"
-    },
-    {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\sample_535569.png",
-      "PackagePath": "staticwebassets\\images\\sample_535569.png"
-    },
-    {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\sample_818754.png",
-      "PackagePath": "staticwebassets\\images\\sample_818754.png"
-    },
-    {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\sample_911729.png",
-      "PackagePath": "staticwebassets\\images\\sample_911729.png"
-    },
-    {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\strawberry_donut_123187.jpeg",
-      "PackagePath": "staticwebassets\\images\\strawberry_donut_123187.jpeg"
-    },
-    {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\strawberry_donut_645662.jpeg",
-      "PackagePath": "staticwebassets\\images\\strawberry_donut_645662.jpeg"
-    },
-    {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\strawberry_donut_739110.jpeg",
-      "PackagePath": "staticwebassets\\images\\strawberry_donut_739110.jpeg"
-    },
-    {
-      "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\images\\strawberry_donut_876232.jpeg",
-      "PackagePath": "staticwebassets\\images\\strawberry_donut_876232.jpeg"
     },
     {
       "Id": "C:\\Users\\HP\\source\\Cake_Rush\\wwwroot\\js\\site.js",
