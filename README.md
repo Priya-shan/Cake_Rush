@@ -13,9 +13,8 @@ that can be delivered to their doorstep or picked up at the nearest store.
 2. **Admin can add new items within respective category (eg. Black Current under Birthday Cakes)**
 3. **Admin can set up their profile with basic details like shop address**
 4. **Admin can view Orders Received**
-5. Admin can update order status anytime
-6. Admins can receive payments through Razor Pay
-7. Admins can view Payments 
+5. **Admin can update order status anytime**
+6. **Admins can view Payments**
 
 **User Side :**
 
@@ -23,10 +22,10 @@ that can be delivered to their doorstep or picked up at the nearest store.
 2. **User can click on products for full details**
 3. **Users can create an account and login to place orders**
 4. **Users can set up their profile with basic details and address to deliver products**
-5. **Users can add products to cart**
+5. **Users can add products to cart and manage carts efficiently**
 6. **Users can place orders using buy now option**
 7. **Users can View their previous orders in profile section**
 8. **Users will receive an order confirmation mail on placing orders**
-9. Users can make payment through Razor Pay
 
+## Database Schema
 ![image](https://user-images.githubusercontent.com/67195594/236443314-32f64c01-b6a4-443c-a38b-1bd4b8d51664.png)
