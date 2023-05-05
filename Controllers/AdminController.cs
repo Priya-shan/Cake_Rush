@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text.Json;
 
 
@@ -11,19 +12,23 @@ namespace Cake_Rush.Controllers
     public class AdminController : Controller
     {
         // GET: AdminController
-        public ActionResult Index()
+        public static string userId;
+        public async Task<ActionResult> Index()
         {
-            return View();
+            //get user data
+            userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Console.WriteLine("user id " + userId);
+            UserModel user = await new ApiRequests<UserModel>().getRequestById($"api/User/{userId}", 0);
+            return View(user);
         }
+
+
 
         // GET: AdminController/Details/5
         public async Task<ActionResult> AddProducts()
         {
-            ApiRequests<CategoryModel> obj = new ApiRequests<CategoryModel>();
-            List<CategoryModel> modelList=new List<CategoryModel>();
-            modelList = await obj.getRequest("api/Category");
-            ViewBag.categoryNameList= modelList;
-            return View();
+            List<CategoryModel> categoryNameList = await new ApiRequests<CategoryModel>().getRequest("api/Category");
+            return View(categoryNameList);
         }
 
         [HttpPost]
@@ -54,49 +59,44 @@ namespace Cake_Rush.Controllers
                 }
                 
                 //preparing product model
-                ApiRequests<ProductModel> obj = new ApiRequests<ProductModel>();
                 ProductModel productModel = new ProductModel();
                 productModel.productName = form["productName"];
                 productModel.categoryId = Convert.ToInt32(form["category"]);
                 productModel.productDescription = form["desc"];
-                productModel.price = Convert.ToInt32(form["subCatPrice"]);
+                productModel.price = Convert.ToInt32(form["subCatPrice_0"]);
                 productModel.imageid = newFileName;
-                productModel.label = form["subCatName"];
+                productModel.label = form["subCatName_0"];
                 
                 //sending post request to add product
-                string response = await obj.postRequest("api/Product", productModel);
-                Console.WriteLine(response);
+                string response = await new ApiRequests<ProductModel>().postRequest("api/Product", productModel);
+                //Console.WriteLine(response);
                 
                 //getting product_id from the response returned
                 var jsonResponse = JsonSerializer.Deserialize<JsonElement>(response);
                 var productId = jsonResponse.GetProperty("productId").GetInt32();
-                
-                //preparing subcategory model
-                ApiRequests<SubCategory> obj1 = new ApiRequests<SubCategory>();
-                SubCategory subcategoryModel = new SubCategory();
-                subcategoryModel.productId = productId;
-                subcategoryModel.categoryName = form["subCatName"];
-                subcategoryModel.price = Convert.ToInt32(form["subCatPrice"]);
-                
-                //sending post request to add subcategory
-                Console.WriteLine(await obj1.postRequest("api/SubCategoryMap", subcategoryModel));
-                
+
                 //fetching additional fields
-                int fieldCount = (Request.Form.Count-6)/2;
-                int idx = 1;
-                
+                int fieldCount = (Request.Form.Count-4)/2;
+                int idx = 0;
+                Console.WriteLine("\n\n\n\nRequest.Form.Count " + Request.Form.Count);
+                Console.WriteLine("\n\n\n\n\n\n enetered field count"+ fieldCount+ " "+ productId);
                 //sending post request for additional fields
-                while(fieldCount > 0)
+                while (fieldCount > 0)
                 {
-                    
+                    Console.WriteLine("entered field count");
+                    SubCategory subcategoryModel = new SubCategory();
                     subcategoryModel.productId = productId;
                     subcategoryModel.categoryName = form[$"subCatName_{idx}"];
                     subcategoryModel.price = Convert.ToInt32(form[$"subCatPrice_{idx}"]);
-                    Console.WriteLine(await obj1.postRequest("api/SubCategoryMap", subcategoryModel));
+                    Console.WriteLine("\n\n\n"+fieldCount + " " + idx);
+                    Console.WriteLine("gonna posttttttttttttt !!!!!");
+                    Console.WriteLine(subcategoryModel.productId + " " + subcategoryModel.categoryName + " " + subcategoryModel.price);
+                    Console.WriteLine(await new ApiRequests<SubCategory>().postRequest("api/SubCategoryMap", subcategoryModel));
                     idx++;
                     fieldCount--;
+                   
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
                 
             
@@ -107,74 +107,11 @@ namespace Cake_Rush.Controllers
         //[Bind("categoryName")CategoryModel CategoryModel
         public async Task<IActionResult> AddCategory(IFormCollection form)
         {
-            ApiRequests<CategoryModel> obj = new ApiRequests<CategoryModel>();
             CategoryModel model = new CategoryModel();
             model.categoryName = form["categoryName"];
-            Console.WriteLine(await obj.postRequest("api/Category",model));
-            return RedirectToAction("Index");
+            Console.WriteLine(await new ApiRequests<CategoryModel>().postRequest("api/Category",model));
+            return RedirectToAction("AddProducts");
         }
 
-        // GET: AdminController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: AdminController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: AdminController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AdminController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: AdminController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AdminController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
