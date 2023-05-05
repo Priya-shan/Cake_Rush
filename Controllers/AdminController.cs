@@ -165,5 +165,37 @@ namespace Cake_Rush.Controllers
             return RedirectToAction("Orders");
         }
 
+        public async Task<ActionResult> Payments()
+        {
+            //get all orders and calculate total revenue
+            List<OrderModel> ordersList = await new ApiRequests<OrderModel>().getRequest("api/Order");
+            ViewBag.revenue = ordersList.Sum(x => x.amount);
+            return View(ordersList);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Payments(IFormCollection form)
+        {
+            //get all orders and calculate total, monthly and yearly revenue
+            List<OrderModel> ordersList = await new ApiRequests<OrderModel>().getRequest("api/Order");
+            string duration = form["duration"];
+            if (duration == "total")
+            {
+                ViewBag.revenue = ordersList.Sum(x => x.amount);
+            }
+            else if (duration == "monthly")
+            {
+                DateTime date = DateTime.Now;
+                ViewBag.revenue = ordersList.Where(x => x.dateOrdered.Month >= date.Month && x.dateOrdered.Month <= date.Month).ToList().Sum(x => x.amount);
+            }
+            else
+            {
+                DateTime date = DateTime.Now;
+                ViewBag.revenue = ordersList.Where(x => x.dateOrdered.Year >= date.Year && x.dateOrdered.Year <= date.Year).ToList().Sum(x => x.amount);
+            }
+
+            ViewBag.revenue = ordersList.Sum(x => x.amount);
+            return View(ordersList);
+        }
+
     }
 }
