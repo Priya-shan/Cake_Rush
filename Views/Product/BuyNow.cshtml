@@ -1,0 +1,221 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+@model List<CartModel>
+<head>
+    <style>
+        .control-label {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<h3 style="text-align:center;margin:20px 0px;">
+    Review & Place Order
+</h3>
+
+<div class="card" style="margin:30px 70px">
+    <div class="card-header" style="font-weight:bold;">Step 1 : Review Personal Details</div>
+    <div class="col-xl-12 main-content">
+        <form asp-action="UpdateProfile" style="margin-left:25px;">
+            <div class="row" style="margin:10px 50px">
+                <div class="col-xl-3">
+                    <label class="control-label">Name</label>
+                </div>
+                <div class="col-xl-8">
+                    <div class="form-group">
+                        <input name="userName" value="@ViewBag.UserModel.userName" class="form-control" />
+                        <span name="userName" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="margin:10px 50px">
+                <div class="col-xl-3">
+                    <label class="control-label">Email</label>
+                </div>
+                <div class="col-xl-8">
+                    <div class="form-group">
+                        <input name="email" value="@ViewBag.UserModel.email" class="form-control" />
+                        <span name="email" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="margin:10px 50px">
+                <div class="col-xl-3">
+                    <label class="control-label">Mobile</label>
+                </div>
+                <div class="col-xl-8">
+                    <div class="form-group">
+                        <input name="mobile" value="@ViewBag.UserModel.mobile" class="form-control" />
+                        <span name="mobile" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="margin:10px 50px">
+                <div class="col-xl-3">
+                    <label class="control-label">Address</label>
+                </div>
+                <div class="col-xl-8">
+                    <div class="form-group">
+                        <input name="address" value="@ViewBag.UserModel.address" class="form-control" />
+                        <span name="address" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="margin:10px 50px">
+                <div class="col-xl-3">
+                    <label class="control-label">City</label>
+                </div>
+                <div class="col-xl-8">
+                    <div class="form-group">
+                        <input name="city" value="@ViewBag.UserModel.city" class="form-control" />
+                        <span name="city" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="margin:10px 50px">
+                <div class="col-xl-3">
+                    <label class="control-label">Pincode</label>
+                </div>
+                <div class="col-xl-8">
+                    <div class="form-group">
+                        <input name="pincode" value="@ViewBag.UserModel.pincode" class="form-control" />
+                        <span name="pincode" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="margin:10px 50px">
+                <div class="col-xl-6 d-flex justify-content-center align-items-center">
+                </div>
+                <div class="col-xl-6 d-flex justify-content-end align-items-center">
+                    <div class="form-group">
+                        <input type="submit" value="Update Details" class="dark-button" style="width:150px;padding:5px 10px" />
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+<form asp-action="PlaceOrder">
+    <div class="card" style="margin:50px 70px">
+        <div class="card-header" style="font-weight:bold">Step 2 : Review Products Added</div>
+        <div class="card-header">
+            <div class="row">
+                <div class="col-xl-5 d-flex justify-content-center align-items-center">
+                    Item Name
+                </div>
+                <div class="col-xl-2 d-flex justify-content-center align-items-center">
+                    Label
+                </div>
+                <div class="col-xl-1 d-flex justify-content-center align-items-center">
+                    Quantity
+                </div>
+                <div class="col-xl-1 d-flex justify-content-center align-items-center">
+                    Price
+                </div>
+                <div class="col-xl-3 d-flex justify-content-center align-items-center">
+                    Message to Shop
+                </div>
+            </div>
+        </div>
+
+        @foreach (var item in Model)
+        {
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-5 d-flex justify-content-center align-items-center">
+                        <div class="row">
+                            <div class="col-xl-5 "><img src="../images/Products/@item.SubCatMap.Product.imageid" width=160px height=120px></div>
+                            <div class="col-xl-7">
+                                <h5 style="margin-left:10px" class="card-title">@item.SubCatMap.Product.productName</h5>
+                                <p style="margin-left:10px;font-size:13px" class="card-text">@item.SubCatMap.Product.productDescription.Substring(0,100)...</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-xl-2 d-flex justify-content-center align-items-center">
+                        @item.SubCatMap.categoryName
+                    </div>
+                    <div class="col-xl-1 d-flex justify-content-center align-items-center">
+                        <div class="form-group">
+                            @item.quantity
+                        </div>
+                    </div>
+                    <div class="col-xl-1 d-flex justify-content-center align-items-center">
+                        ₹@item.price
+                    </div>
+                    <div class="col-xl-3 d-flex justify-content-center align-items-center">
+                        <textarea name="message" style="font-size:13px" rows="4" cols="50">Eg, Happy Birthday Priya - 22-04-2023 -> Please Add this Message on Birthday Cake (or) Please make it eggless"</textarea>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+    <div class="card" style="margin:30px 70px">
+        <div class="card-header" style="font-weight:bold">Step 3 : Add Payment & Delivery Details</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-4 d-flex justify-content-center align-items-center">
+                            Select Delivery Mode :
+                        </div>
+                        <div class="col-xl-4 ">
+                            <input type="radio" value="Door Delivery" name="deliveryMode" />
+                            <label style="margin-left:20px">Door Step Delivery</label>
+                        </div>
+                        <div class="col-xl-4 ">
+                            <input type="radio" value="Pickup at Store" name="deliveryMode" />
+                            <label style="margin-left:20px">Pickup at Store</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xl-12" style="margin-top:30px">
+                    <div class="row">
+                        <div class="col-xl-4 d-flex justify-content-center align-items-center">
+                            Select Payment Mode :
+                        </div>
+                        <div class="col-xl-4 ">
+                            <input type="radio" value="Online" name="paymentMode" />
+                            <label style="margin-left:20px">Online Payment</label>
+                        </div>
+                        <div class="col-xl-4 ">
+                            <input type="radio" value="Offline" name="paymentMode" />
+                            <label style="margin-left:20px">Cash On Delivery</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin:10px 50px">
+        <div class="col-xl-5 d-flex justify-content-center align-items-center">
+
+        </div>
+        <div class="col-xl-7 d-flex justify-content-start align-items-center">
+            <div class="form-group" style="margin-left:20px">
+                <input type="submit" value="Place Order" class="dark-button" style="width:150px;padding:5px 10px" />
+            </div>
+
+        </div>
+
+    </div>
+
+</form>

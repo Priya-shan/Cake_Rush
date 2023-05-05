@@ -28,6 +28,7 @@ body {
 :root {
     --light-peach: #ffe5ed;
     --dark-peach: #ffc6d7;
+    --very-light-peach: #fff2f6;
 }
 nav {
     padding: 1px !important;
