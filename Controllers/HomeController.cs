@@ -1,7 +1,9 @@
 ﻿using Cake_Rush.Models;
+using EllipticCurve.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net;
+using System.Security.Claims;
 
 namespace Cake_Rush.Controllers
 {
@@ -16,22 +18,40 @@ namespace Cake_Rush.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ApiRequests<CategoryModel> obj = new ApiRequests<CategoryModel>();
+            ProductController.activeSubCatId = 0;
+            ViewBag.activeSubCatId = ProductController.activeSubCatId;
+            //inital setup of user profile
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId!=null)
+            {
+                ApiRequests<UserModel> obj = new ApiRequests<UserModel>();
+                UserModel user = await obj.getRequestById($"api/User/{userId}", 0);
+                if (user == null && userId != null)
+                {
+                    UserModel userModel = new UserModel();
+                    userModel.userId = userId;
+                    userModel.email = User.Identity.Name;
+                    string userName = User.Identity.Name;
+                    userModel.userName = userName.Substring(0, userName.IndexOf("@"));
+                    userModel.mobile = "";
+                    userModel.address = "";
+                    userModel.city = "";
+                    userModel.pincode = "";
+
+                    Console.WriteLine(await obj.postRequest("api/User", userModel));
+                }
+            }
+            //get all catagories
             List<CategoryModel> modelList = new List<CategoryModel>();
-            modelList = await obj.getRequest("api/Category");
+            modelList = await new ApiRequests<CategoryModel>().getRequest("api/Category");
             ViewBag.categoryNameList = modelList;
 
-            ApiRequests<ProductModel> obj1 = new ApiRequests<ProductModel>();
-            List<ProductModel> productModelList =await obj1.getRequest("api/Product");
+            //get all products
+            List<ProductModel> productModelList =await new ApiRequests<ProductModel>().getRequest("api/Product");
             ViewBag.ProductModelList = productModelList;
             return View();
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
+       
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
