@@ -240,10 +240,45 @@ namespace Cake_Rush.Controllers
                 //await RemoveCartItem(orderModel.cartId);
             }
             // send email
-            //string mailStatus = SendOrderPlacedMail(currentCartModelsList);
+            string mailStatus = SendOrderPlacedMail(currentCartModelsList);
             Console.WriteLine(mailStatus);
             return RedirectToAction("MyOrders", "User");
         }
 
+
+        public string SendOrderPlacedMail(List<CartModel> currentCartModelsList)
+        {
+            string apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+            string toEmail = currentCartModelsList[0].User.email;
+            Console.WriteLine(apiKey);
+            if (apiKey != null)
+            {
+                var client = new SendGridClient(apiKey);
+                var from = new EmailAddress("shanmugapriyashanu2002@gmail.com", "Cakr Rush");
+                var subject = "Cake Rush💕 - Woohooo!  Order Placed Successfully!";
+                var to = new EmailAddress(toEmail, "Example User");
+                var plainTextContent = "TESTING EMAIL";
+                var htmlContent = "" +
+                    "<h3>Order Details 🎂</h3>";
+                foreach (var item in currentCartModelsList)
+                {
+                    htmlContent += $"<h3>Item Name : {item.SubCatMap.Product.productName} - {item.SubCatMap.categoryName}</h3>" +
+                        $"<h3>Amount : ₹{item.SubCatMap.price} x {item.quantity} = ₹{item.price} </h3>" +
+                        $"<hr>";
+
+                }
+                htmlContent += $"<h3>Delivery Details🚚</h3> " +
+                    $"<h3>Customer Name : {currentCartModelsList[0].User.userName}</h3>" +
+                    $"<h3>Mobile : {currentCartModelsList[0].User.mobile}</h3>" +
+                    $"<h3>Address : {currentCartModelsList[0].User.address}</h3>" +
+                    $"<h3>Address : {currentCartModelsList[0].User.city}</h3>" +
+                    $"<h3>Address : {currentCartModelsList[0].User.pincode}</h3>";
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                var response = client.SendEmailAsync(msg).Result;
+                Console.WriteLine(response.StatusCode);
+                return "Mail Sent Successfully";
+            }
+            return "Mail Sent Failed";
+        }
     }
 }
