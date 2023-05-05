@@ -28,4 +28,4 @@ that can be delivered to their doorstep or picked up at the nearest store.
 8. **Users will receive an order confirmation mail on placing orders**
 
 ## Database Schema
-![image](https://user-images.githubusercontent.com/67195594/236443314-32f64c01-b6a4-443c-a38b-1bd4b8d51664.png)
+<img src="https://user-images.githubusercontent.com/67195594/236443314-32f64c01-b6a4-443c-a38b-1bd4b8d51664.png" width=700px>
