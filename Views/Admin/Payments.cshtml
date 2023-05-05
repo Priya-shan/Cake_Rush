@@ -1,0 +1,95 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<OrderModel>
+
+<div class="row">
+
+    <div class="col-xl-3 side-bar">
+
+        <div class="row">
+            <div class="col-xl-12" style="margin-top:35px !important">
+                <button class="side-bar-items " onclick="location.href='@Url.Action("Index", "Admin")'">
+                    Account
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items" onclick="location.href='@Url.Action("Orders", "Admin")'">
+                    Orders Recieved
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items" onclick="location.href='@Url.Action("AddProducts", "Admin")'">
+                    Add Products
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items active-side-bar-items" onclick="location.href='@Url.Action("Payments", "Admin")'">
+                    Payments
+                </button>
+            </div>
+
+            <div class="col-xl-12">
+                <a class="nav-link text-dark side-bar-items" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Manage">Change Password </a>
+            </div>
+            <div class="col-xl-12">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="side-bar-items">Logout</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xl-9 main-content">
+        <form asp-action="payments">
+            <div class="row">
+                <div class="col-xl-3">
+
+                    <select id="duration" name="duration" class="form-control" value="@ViewBag.category" style="width:220px;background-color:var(--light-peach);text-align:center">
+                        <option value="total" class="form-control" selected disabled>Total</option>
+                        <option value="month">This Month</option>
+                        <option value="year">This Year</option>
+                    </select>
+
+                </div>
+                <div class="col-xl-1">
+                    <input type="submit" value="go" class="form-control" />
+                </div>
+                <div class="col-xl-1">
+                </div>
+
+                <div class="col-xl-5 d-flex justify-content-center align-items-center">
+                    <h5 class="form-control" style="border:none">Total Revenue Generated : ₹@ViewBag.revenue</h5>
+                </div>
+            </div>
+        </form>
+        @foreach (var item in Model)
+        {
+            <div class="card" style="margin:30px 10px;">
+                <div class="card-header">
+                    <div class="row">
+
+                        <div class="col-xl-3 d-flex justify-content-center align-items-center">
+                            Order Id : #ORDERID-@item.orderId
+                        </div>
+                        <div class="col-xl-3 d-flex justify-content-center align-items-center">
+                            Date : @item.dateOrdered.ToString().Substring(0,16)
+                        </div>
+                        <div class="col-xl-3 d-flex justify-content-center align-items-center">
+                            Payment Mode : @item.paymentMode
+                        </div>
+
+                        <div class="col-xl-3 d-flex justify-content-center align-items-center">
+                            Total Amount : ₹@item.amount
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

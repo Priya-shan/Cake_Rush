@@ -3,7 +3,8 @@
 *@
 @{
 }
-@model Cake_Rush.Models.ProductModel;
+@model List<CategoryModel>
+
 <head>
     <style>
 
@@ -16,8 +17,9 @@
             border-color: var(--dark-peach);
             box-shadow: 0 0 0 0.10rem var(--dark-peach);
         }
-        .control-label{
-            padding-top:10px;
+
+        .control-label {
+            padding-top: 10px;
         }
     </style>
 </head>
@@ -25,7 +27,7 @@
     <div class="col-xl-3 side-bar">
 
         <div class="row">
-            <div class="col-xl-12">
+            <div class="col-xl-12" style="margin-top:35px !important">
                 <button class="side-bar-items" onclick="location.href='@Url.Action("Index", "Admin")'">
                     Account
                 </button>
@@ -46,14 +48,7 @@
                 </button>
             </div>
             <div class="col-xl-12">
-                <button class="side-bar-items" onclick="location.href='@Url.Action("AddAdmin", "Admin")'">
-                    Add Admin
-                </button>
-            </div>
-            <div class="col-xl-12">
-                <button class="side-bar-items" onclick="location.href='@Url.Action("ChangePassword", "Admin")'">
-                    Change Password
-                </button>
+                <a class="nav-link text-dark side-bar-items" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Manage">Change Password </a>
             </div>
             <div class="col-xl-12">
                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -65,22 +60,22 @@
     </div>
     <div class="col-xl-9 main-content">
         <form asp-action="AddCategory" style="margin-left:25px;">
-       <div class="row">
-            
-           <div class="col-xl-8">
-               <div class="form-group">
-                <input name="categoryName" class="form-control" required />
-                <span name="categoryName" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="col-xl-3">
-                 <div class="form-group">
-                <input type="submit" value="Add Category" class="w-100 btn dark-button"  />
-                </div>
-            </div>
+            <div class="row">
 
-           
-       </div>
+                <div class="col-xl-8">
+                    <div class="form-group">
+                        <input name="categoryName" class="form-control" required />
+                        <span name="categoryName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-xl-3">
+                    <div class="form-group">
+                        <input type="submit" value="Add Category" class="w-100 btn dark-button" />
+                    </div>
+                </div>
+
+
+            </div>
         </form>
 
         <form asp-action="AddProducts" style="margin-left:25px;" enctype="multipart/form-data">
@@ -91,26 +86,26 @@
                 <div class="col-xl-8">
                     <select id="category" name="category" class="form-control">
                         <option value="" selected disabled>Select a category</option>
-                        @foreach (var item in ViewBag.categoryNameList)
+                        @foreach (var item in Model)
                         {
                             <option value=@item.categoryId>@item.categoryName</option>
                         }
                     </select>
                 </div>
-               
+
             </div>
-           <div class="row">
+            <div class="row">
                 <div class="col-xl-3">
                     <label class="control-label">Product Name</label>
                 </div>
-               <div class="col-xl-8">
-                   <div class="form-group">
-                    <input name="productName" class="form-control" />
+                <div class="col-xl-8">
+                    <div class="form-group">
+                        <input name="productName" class="form-control" />
                         <span name="productName" class="text-danger"></span>
                     </div>
                 </div>
-               
-           </div>
+
+            </div>
             <div class="row">
                 <div class="col-xl-3">
                     <label class="control-label">Product Description</label>
@@ -134,47 +129,47 @@
 
             </div>
             <div class="row" id="sub-categories">
-            <div class="row" >
-                <div class="col-xl-3">
-                    <label class="control-label">Sub Category Name</label>
-                </div>
-                <div class="col-xl-8">
-                    <div class="form-group">
-                        <input name="subCatName" class="form-control" />
-                        <span name="subCatName" class="text-danger"></span>
+                <div class="row">
+                    <div class="col-xl-3">
+                        <label class="control-label">Sub Category Name</label>
                     </div>
+                    <div class="col-xl-8">
+                        <div class="form-group">
+                            <input name="subCatName_0" class="form-control" />
+                            <span name="subCatName_0" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-3">
+                        <label class="control-label">Sub Category Price</label>
+                    </div>
+                    <div class="col-xl-7">
+                        <div class="form-group">
+                            <input name="subCatPrice_0" class="form-control" />
+
+                            <span name="subCatPrice_0" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-1">
+                        <a class="nav-link text-dark" href="#" title="Add" onclick="addSubCategory();">
+                            <span class="material-icons" style="font-size:35px;padding:0px;padding-top:5px;">
+                                add
+                            </span>
+                        </a>
+                    </div>
+
                 </div>
 
             </div>
-
             <div class="row">
-                <div class="col-xl-3">
-                    <label class="control-label">Sub Category Price</label>
-                </div>
-                <div class="col-xl-7">
-                    <div class="form-group">
-                        <input name="subCatPrice" class="form-control" />
-                        
-                        <span name="subCatPrice" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-xl-1">
-                    <a class="nav-link text-dark" href="#" title="Add" onclick="addSubCategory();">
-                        <span class="material-icons" style="font-size:35px;padding:0px;padding-top:5px;">
-                            add
-                        </span>
-                    </a>
-                </div>
-
-            </div>
-           
-            </div>
-            <div class="row" >
                 <div col-xl-7></div>
                 <div col-xl-5 id="minus" style="margin-left:600px"></div>
             </div>
-                @*<input type="text" name="text" />*@
-               
+            @*<input type="text" name="text" />*@
+
 
             <div class="col-xl-3">
                 <div class="form-group">
@@ -192,21 +187,21 @@
         var subCategoryId = $(this).data('subcategory');
         $('#' + subCategoryId).remove();
         subCategoryCount--;
-        if(subCategoryCount>=1){
+        if (subCategoryCount >= 1) {
             var minus =
                 '<a class="nav-link text-dark remove-sub-category" href="#" title="Remove" data-subcategory="subCatId_' + subCategoryCount + '"">' +
                 '<button class="light-button" style="width:200px;">Remove Last Added</button> ' +
                 '</a>';
             document.getElementById("minus").innerHTML = minus;
         }
-        else{
+        else {
             document.getElementById("minus").innerHTML = "";
         }
     });
-    
+
 
     function addSubCategory() {
-        var row = '<div class="row" id=subCatId_' + subCategoryCount +'> ' +
+        var row = '<div class="row" id=subCatId_' + subCategoryCount + '> ' +
             '<div class="col-xl-3">' +
             '<label class="control-label">Sub Category Name</label>' +
             '</div>' +
@@ -225,8 +220,8 @@
             '<span name="subCatPrice_' + subCategoryCount + '" class="text-danger"></span>' +
             '</div>' +
             '</div>'
-            '</div>';
-        var minus = 
+        '</div>';
+        var minus =
             '<a class="nav-link text-dark remove-sub-category" href="#" title="Remove" data-subcategory="subCatId_' + subCategoryCount + '"">' +
             '<button class="light-button" style="width:200px;">Remove Last Added</button> ' +
             '</a>';

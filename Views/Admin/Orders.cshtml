@@ -1,0 +1,338 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<OrderModel>
+@{
+}
+<head>
+    <style>
+
+        main {
+            padding: 0px !important;
+        }
+
+        body {
+            overflow: hidden;
+            margin: 0px;
+        }
+
+        .container {
+            margin: 0px;
+            margin-right: 0px;
+        }
+
+        .side-bar {
+            padding-top: 20px;
+            background-color: var(--light-peach);
+            height: 100vh;
+            border-color: var(--dark-peach);
+            box-shadow: 0 0 0 0.10rem var(--dark-peach);
+        }
+
+        .main-content {
+            max-height: 510px;
+            overflow-y: auto;
+        }
+
+        .side-bar-items {
+            font-weight: bold;
+            border: 2px var(--dark-peach) solid;
+            /*border-color: var(--dark-peach);
+                                    box-shadow: 0 0 0 0.10rem var(--dark-peach);*/
+            text-align: center;
+            background-color: white;
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin: 10px 0px;
+            margin-left: 40px;
+            width: 200px
+        }
+
+        button:focus {
+            border-color: var(--dark-peach);
+            box-shadow: 0 0 0 0.10rem var(--dark-peach);
+        }
+
+        .active-side-bar-items {
+            background-color: var(--light-peach);
+        }
+
+        .control-label {
+            padding-top: 10px;
+        }
+
+        .card-header {
+            font-size: 13px;
+            font-weight: bold
+        }
+    </style>
+</head>
+<div class="row">
+    <div class="col-xl-3 side-bar">
+
+        <div class="row">
+            <div class="col-xl-12" style="margin-top:35px !important">
+                <button class="side-bar-items " onclick="location.href='@Url.Action("Index", "Admin")'">
+                    Account
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items active-side-bar-items" onclick="location.href='@Url.Action("Orders", "Admin")'">
+                    Orders Recieved
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items" onclick="location.href='@Url.Action("AddProducts", "Admin")'">
+                    Add Products
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items" onclick="location.href='@Url.Action("Payments", "Admin")'">
+                    Payments
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <a class="nav-link text-dark side-bar-items" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Manage">Change Password </a>
+            </div>
+            <div class="col-xl-12">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="side-bar-items">Logout</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xl-9 main-content">
+        <h3 style="text-align:center;margin-top:5px;margin-bottom:10px">My Orders</h3>
+
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link" id="nav-Actice-tab" data-bs-toggle="tab" data-bs-target="#nav-Active" type="button" role="tab" aria-controls="activeOrdersTab" aria-selected="true">Active Orders</button>
+            <button class="nav-link" id="nav-Completed-tab" data-bs-toggle="tab" data-bs-target="#nav-Completed" type="button" role="tab" aria-controls="completedOrdersTab" aria-selected="true">Completed Orders</button>
+
+        </div>
+        <div class="tab-content" id="nav-tabContent">
+            @foreach (var kvp in ViewBag.PlansDictionary)
+            {
+
+                Console.WriteLine("key->" + kvp.Key);
+                <div class="tab-pane fade show active" id="nav-@kvp.Key" role="tabpanel" aria-labelledby="nav-@kvp.Key-tab">
+                    @*@kvp.Key*@
+                    @foreach (var item in kvp.Value)
+                    {
+                        <div class="card" style="margin:30px 10px;">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-xl-3 d-flex justify-content-center align-items-center">
+                                        Order Placed on : @item.dateOrdered.ToString("dd-MMM-yyyy")
+                                    </div>
+
+                                    <div class="col-xl-3 d-flex justify-content-center align-items-center">
+                                        Total Amount : ₹@item.amount
+                                    </div>
+
+                                    <div class="col-xl-4 d-flex justify-content-center align-items-center">
+                                        Order Id : # @(new Random().Next(10000, 999999))-ORDERID-@item.orderId
+                                    </div>
+                                    @if (item.orderStatus == "Pending")
+                                    {
+                                        <div class="col-xl-2 d-flex justify-content-center align-items-center">
+                                            <a class="btn-success" style="font-size:13px;font-weight:100;width:160px;text-align:center;padding:5px 10px !important;border-radius:23px" asp-action="CompleteOrder" asp-route-id="@item.orderId">Complete Order</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-xl-2 d-flex justify-content-center align-items-center">
+                                            <a class="btn-danger" style="width:160px;text-align:center;padding:5px 10px;font-size:13px;font-weight:100;border-radius:23px" asp-action="CompleteOrder" asp-route-id="@item.orderId">Completed</a>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-4 " style="border-right:1px #80808073 solid">
+                                        <div class="row">
+                                            <p style="text-align:center">Product Details</p>
+                                            <div class="col-xl-4 ">Name : </div>
+                                            <div class="col-xl-8">@item.Cart.SubCatMap.Product.productName - @item.Cart.SubCatMap.categoryName</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-4">Price :</div>
+                                            <div class="col-xl-8">₹ @item.Cart.SubCatMap.price x @item.Cart.quantity</div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col-xl-12  d-flex justify-content-center align-items-center " style="margin-top:20px">
+                                                <button type="button" class="btn light-button" data-toggle="modal" data-target="#productModal" onclick="getProductData(@item.orderId)" style="width:150px;font-size:14px">
+                                                    View Details
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-4" style="border-right:1px #80808073 solid">
+                                        <div class="row">
+                                            <p style="text-align:center">Customer Details</p>
+                                            <div class="col-xl-4">Name : </div>
+                                            <div class="col-xl-8">@item.Cart.User.userName</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-4">Mobile :</div>
+                                            <div class="col-xl-8">@item.Cart.User.mobile</div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col-xl-12  d-flex justify-content-center align-items-center " style="margin-top:20px">
+                                                <button type="button" class="btn light-button" data-toggle="modal" data-target="#customerModal" onclick="getCustomerData('@item.Cart.User.userId')" style="width:150px;font-size:14px">
+                                                    View Details
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <div class="row ">
+                                            <p style="text-align:center">Payment Details</p>
+                                            <div class="col-xl-4 ">Delivery : </div>
+                                            <div class="col-xl-8">@item.deliveryMode</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-4">Payment :</div>
+                                            <div class="col-xl-8">@item.paymentMode</div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col-xl-12  d-flex justify-content-center align-items-center " style="margin-top:20px">
+                                                <button type="button" class="btn light-button" data-toggle="modal" data-target="#paymentModal" onclick="getPaymentData(@item.orderId)" style="width:150px;font-size:14px">
+                                                    View Details
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModal" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="margin-top:150px;margin-left:500px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Product Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-body-productDetails">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModal" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="margin-top:150px;margin-left:500px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Customer Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-body-customerDetails">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModal" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="margin-top:150px;margin-left:500px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Payment & Delivery Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-body-paymentDetails">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script>
+
+            function getPaymentData(orderId) {
+                console.log("entered payment  data function" + orderId);
+                fetch('https://localhost:7001/api/Order/' + orderId)
+                    .then(response => response.json())  // Convert the response to a JSON object
+                    .then(data => {
+                        console.log(data);
+                        var paymentMode = data.paymentMode;
+                        var paymentMedium = "";
+                        if (paymentMode == 'Online') {
+                            paymentMedium = "Gpay"
+                        }
+                        else {
+                            paymentMedium = "Cash On Delivery"
+                        }
+                        var deliveryMode = data.deliveryMode;
+                        var amount = data.amount;
+
+                        var str = `<strong>Payment Mode:</strong> ${paymentMode}<br> <br><strong>Payment Medium : </strong>${paymentMedium}<br> <br><strong>Total Amount : </strong>₹${amount}<br> <br><strong>Delivery Mode: </strong>${deliveryMode}`;
+                        $("#modal-body-paymentDetails").html(str);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+            function getCustomerData(userId) {
+                console.log("entered customer data function" + userId);
+                console.log("userId --------->" + userId);
+                fetch('https://localhost:7001/api/User/' + userId)
+                    .then(response => response.json())  // Convert the response to a JSON object
+                    .then(data => {
+                        console.log(data);
+                        var userName = data.userName;
+                        var email = data.email;
+                        var mobile = data.mobile;
+                        var address = data.address;
+                        var city = data.city;
+                        var pincode = data.pincode;
+                        city = city + " " + pincode;
+
+                        var str = `<strong>Name:</strong> ${userName}<br> <br><strong>Email : </strong>${email}<br> <br><strong>Mobile : </strong>${mobile}<br> <br><strong>Address : </strong>${address} <br><br><strong>City : </strong>${city}`;
+                        $("#modal-body-customerDetails").html(str);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+
+            function getProductData(orderId) {
+                console.log("orderId --------->" + orderId);
+                fetch('https://localhost:7001/api/Order/' + orderId)
+                    .then(response => response.json())  // Convert the response to a JSON object
+                    .then(data => {
+                        console.log(data);
+                        var productName = data.cart.subCatMap.product.productName;
+                        var productLabel = data.cart.subCatMap.product.label;
+                        var productPrice = data.cart.subCatMap.price;
+                        var quantity = data.cart.quantity;
+                        var totalPrice = data.amount;
+                        var message = data.message;
+
+                        productName = productName + " " + productLabel;
+                        productPrice = '₹' + productPrice + ' x ' + quantity + ' = ' + totalPrice;
+                        var str = `<strong>Name:</strong> ${productName}<br> <br><strong>Quantity : </strong>${quantity}<br> <br><strong>Price : </strong>${productPrice}<br> <br><strong>Message from Customer: </strong><br>${message}`;
+                        $("#modal-body-productDetails").html(str);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+        </script>
