@@ -131,5 +131,31 @@ namespace Cake_Rush.Controllers
             return RedirectToAction("AddProducts");
         }
 
+        public async Task<ActionResult> Orders()
+        {
+
+            //get all orders
+            List<OrderModel> ordersList = await new ApiRequests<OrderModel>().getRequest("api/Order");
+
+            Dictionary<string, List<OrderModel>> plansDictionary = new Dictionary<string, List<OrderModel>>();
+
+            //get active and completed orders
+            List<OrderModel> activeOrdersList = ordersList.Where(x => x.orderStatus == "Pending").ToList();
+            List<OrderModel> completedOrdersList = ordersList.Where(x => x.orderStatus == "Completed").ToList();
+
+            //sort it by date descending
+            activeOrdersList = activeOrdersList.OrderByDescending(x => x.dateOrdered).ToList();
+            completedOrdersList = completedOrdersList.OrderByDescending(x => x.dateOrdered).ToList();
+
+            //add to dictionary
+            plansDictionary.Add("Active", activeOrdersList);
+            plansDictionary.Add("Completed", completedOrdersList);
+
+            ViewBag.PlansDictionary = plansDictionary;
+            return View(ordersList);
+        }
+
+
+
     }
 }
