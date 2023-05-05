@@ -1,0 +1,164 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<OrderModel>
+<head>
+    <style>
+
+        main {
+            padding: 0px !important;
+        }
+
+        body {
+            overflow: hidden;
+            margin: 0px;
+        }
+
+        .container {
+            margin: 0px;
+            margin-right: 0px;
+        }
+
+        .side-bar {
+            padding-top: 20px;
+            background-color: var(--light-peach);
+            height: 100vh;
+            border-color: var(--dark-peach);
+            box-shadow: 0 0 0 0.10rem var(--dark-peach);
+        }
+
+        .main-content {
+            max-height: 510px;
+            overflow-y: auto;
+        }
+
+        .side-bar-items {
+            font-weight: bold;
+            border: 2px var(--dark-peach) solid;
+            text-align: center;
+            background-color: white;
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin: 10px 0px;
+            margin-left: 40px;
+            width: 200px
+        }
+
+        button:focus {
+            border-color: var(--dark-peach);
+            box-shadow: 0 0 0 0.10rem var(--dark-peach);
+        }
+
+        .active-side-bar-items {
+            background-color: var(--light-peach);
+        }
+
+        .control-label {
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<div class="row">
+    <div class="col-xl-3 side-bar">
+
+        <div class="row">
+            <div class="col-xl-12">
+                <img src="~/images/User_Profile.png" style="border-radius:50%;width:160px;height:160px;margin:17px 60px;border-color: var(--dark-peach);box-shadow: 0 0 0 0.10rem var(--dark-peach);" />
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items" onclick="location.href='@Url.Action("Index", "User")'">
+                    Account
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items active-side-bar-items" onclick="location.href='@Url.Action("MyOrders", "User")'">
+                    My Orders
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items" onclick="location.href='@Url.Action("ChangePassword", "User")'">
+                    Change Password
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="side-bar-items">Logout</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xl-9 main-content">
+        <h3 style="text-align:center;margin-top:5px;margin-bottom:10px">My Orders</h3>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link" id="nav-Actice-tab" data-bs-toggle="tab" data-bs-target="#nav-Active" type="button" role="tab" aria-controls="activeOrdersTab" aria-selected="true">Active Orders</button>
+            <button class="nav-link" id="nav-Completed-tab" data-bs-toggle="tab" data-bs-target="#nav-Completed" type="button" role="tab" aria-controls="completedOrdersTab" aria-selected="true">Completed Orders</button>
+
+        </div>
+        <div class="tab-content" id="nav-tabContent">
+            @foreach (var kvp in ViewBag.PlansDictionary)
+            {
+
+                Console.WriteLine("key->" + kvp.Key);
+                <div class="tab-pane fade show active" id="nav-@kvp.Key" role="tabpanel" aria-labelledby="nav-@kvp.Key-tab">
+                    @*@kvp.Key*@
+                    @foreach (var item in kvp.Value)
+                    {
+                        <div class="card" style="margin:30px 10px">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-xl-4 d-flex justify-content-center align-items-center">
+                                        Ordered Placed : @item.dateOrdered.ToString("dd-MMM-yyyy")
+                                    </div>
+
+                                    <div class="col-xl-3 d-flex justify-content-center align-items-center">
+                                        Total Amount : ₹@item.amount
+                                    </div>
+                                    <div class="col-xl-1 d-flex justify-content-center align-items-center">
+                                    </div>
+                                    <div class="col-xl-4 d-flex justify-content-center align-items-center">
+                                        Order Id : # @(new Random().Next(10000, 999999))-ORDERID-@item.orderId
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-3 d-flex justify-content-center align-items-center">
+                                        <img src="../images/Products/@item.Cart.SubCatMap.Product.imageid" width=130px height=90px>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <h5 class="card-title">@item.Cart.SubCatMap.Product.productName - @item.Cart.SubCatMap.categoryName</h5>
+                                        <p>Price - ₹@item.Cart.SubCatMap.price x @item.Cart.quantity</p>
+                                        <a class=" light-button" style="width:100px;text-align:center;padding:5px 10px" asp-action="RemoveCartItem" asp-route-id="@item.cartId" asp-route-amount="1">View Details</a>
+                                    </div>
+                                    <div class="col-xl-1">
+                                    </div>
+                                    <div class="col-xl-3 d-flex flex-column justify-content-center align-items-center">
+                                        @if (item.orderStatus == "Completed")
+                                        {
+                                            <div style="padding:15px 20px;margin-left:50px" class="badge bg-success mb-2">Order Delivered</div>
+                                            <p style="margin-left:50px!important" class="m-0">📞 90808888421</p>
+                                        }
+                                        else
+                                        {
+                                            <div style="padding:15px 20px;margin-left:50px" class="badge bg-danger mb-2">Order in Progress</div>
+                                            <p style="margin-left:50px!important" class="m-0">📞 90808888421</p>
+                                        }
+
+                                    </div>
+                                    <div class="col-xl-1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

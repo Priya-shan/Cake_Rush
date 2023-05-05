@@ -1,0 +1,187 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model UserModel
+<head>
+    <style>
+
+        main {
+            padding: 0px !important;
+        }
+
+        body {
+            overflow: hidden;
+            margin: 0px;
+        }
+
+        .container {
+            margin: 0px;
+            margin-right: 0px;
+        }
+
+        .side-bar {
+            padding-top: 20px;
+            background-color: var(--light-peach);
+            height: 100vh;
+            border-color: var(--dark-peach);
+            box-shadow: 0 0 0 0.10rem var(--dark-peach);
+        }
+
+        .main-content {
+            max-height: 510px;
+            overflow-y: auto;
+        }
+
+        .side-bar-items {
+            font-weight: bold;
+            border: 2px var(--dark-peach) solid;
+            /*border-color: var(--dark-peach);
+                    box-shadow: 0 0 0 0.10rem var(--dark-peach);*/
+            text-align: center;
+            background-color: white;
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin: 10px 0px;
+            margin-left: 40px;
+            width: 200px
+        }
+
+        button:focus {
+            border-color: var(--dark-peach);
+            box-shadow: 0 0 0 0.10rem var(--dark-peach);
+        }
+
+        .active-side-bar-items {
+            background-color: var(--light-peach);
+        }
+
+        .control-label {
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<div class="row">
+    <div class="col-xl-3 side-bar">
+
+        <div class="row">
+            <div class="col-xl-12">
+                <img src="~/images/User_Profile.png" style="border-radius:50%;width:160px;height:160px;margin:17px 60px;border-color: var(--dark-peach);box-shadow: 0 0 0 0.10rem var(--dark-peach);" />
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items active-side-bar-items" onclick="location.href='@Url.Action("Index", "User")'">
+                    Account
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <button class="side-bar-items" onclick="location.href='@Url.Action("MyOrders", "User")'">
+                    My Orders
+                </button>
+            </div>
+            <div class="col-xl-12">
+                <a class="nav-link text-dark side-bar-items" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Manage">Change Password </a>
+               
+            </div>
+            <div class="col-xl-12">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="side-bar-items">Logout</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xl-9 main-content" >
+        <form asp-action="UpdateProfile" style="margin-left:25px;">
+        <div class="row" style="margin:10px 50px">
+            <div class="col-xl-3">
+                <label class="control-label">Name</label>
+            </div>
+            <div class="col-xl-8">
+                <div class="form-group">
+                    <input name="userName" value="@Model.userName" class="form-control" />
+                    <span name="userName" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="margin:10px 50px">
+            <div class="col-xl-3">
+                <label class="control-label">Email</label>
+            </div>
+            <div class="col-xl-8">
+                <div class="form-group">
+                    <input name="email" value="@Model.email" class="form-control" />
+                    <span name="email" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="margin:10px 50px">
+            <div class="col-xl-3">
+                <label class="control-label">Mobile</label>
+            </div>
+            <div class="col-xl-8">
+                <div class="form-group">
+                    <input name="mobile" value="@Model.mobile" class="form-control" />
+                    <span name="mobile" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="margin:10px 50px">
+            <div class="col-xl-3">
+                <label class="control-label">Address</label>
+            </div>
+            <div class="col-xl-8">
+                <div class="form-group">
+                    <input name="address" value="@Model.address" class="form-control" />
+                    <span name="address" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="margin:10px 50px">
+            <div class="col-xl-3">
+                <label class="control-label">City</label>
+            </div>
+            <div class="col-xl-8">
+                <div class="form-group">
+                    <input name="city" value="@Model.city" class="form-control" />
+                    <span name="city" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="margin:10px 50px">
+            <div class="col-xl-3">
+                <label class="control-label">Pincode</label>
+            </div>
+            <div class="col-xl-8">
+                <div class="form-group">
+                    <input name="pincode" value="@Model.pincode" class="form-control" />
+                    <span name="pincode" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="margin:10px 50px">
+            <div class="col-xl-6 d-flex justify-content-center align-items-center">
+                <div class="form-group">
+                    <input type="submit" value="Save Changes" class="w-100 btn dark-button" style="padding:10px 50px" />
+                </div>
+            </div>
+            <div class="col-xl-6 d-flex justify-content-center align-items-center">
+                <div class="form-group">
+                    <a asp-action="Index" asp-controller="User" class="w-100 btn dark-button" style="padding:10px 50px;text-align:center">
+                    Cancel Changes
+                    </a>
+                </div>
+                    
+            </div>
+
+        </div>
+        </form>
+    </div>
+
+</div>

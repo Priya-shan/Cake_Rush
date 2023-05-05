@@ -3,30 +3,92 @@
 *@
 @{
 }
-
+<head>
+<style>
+        .disabled {
+            pointer-events: none;
+            color: gray;
+            text-decoration: none;
+            cursor: default;
+        }
+</style>
+</head>
 <h3 style="margin:20px 0px">@ViewBag.CategoryNameById / @ViewBag.ProductModel.productName</h3>
 <div class="row">
-    <div class="col-xl-1">
-
+    <div class="col-xl-5" style="margin-left:70px">
+        <img class="card-img-top" style="border-radius:18px 18px 18px 18px;height:380px;width:450px;margin:15px;margin-left:20px" src="~/images/Products/@ViewBag.ProductModel.imageid" alt="Card image cap">
     </div>
-    <div class="col-xl-4">
-        <img class="card-img-top" style="border-radius:18px 18px 18px 18px;height:380px;width:370px;margin-left:20px" src="~/images/Products/@ViewBag.ProductModel.imageid" alt="Card image cap">
-    </div>
-    <div class="col-xl-5" style="margin-left:40px">
+    <div class="col-xl-5" style="margin-left:20px">
         <h2> @ViewBag.ProductModel.productName -  @ViewBag.ProductModel.label</h2>
         <h2 style="display: inline-block; margin-right: 10px;">₹@ViewBag.ProductModel.price</h2>
         <p style="display: inline-block;">Tax Included</p>
         <p style="font-size:"> @ViewBag.ProductModel.productDescription</p>
-        <h4> Sub Categories</h4>
-        @foreach(var item in @ViewBag.subCategoryModelList){
-            <a asp-action="DetailsBySubCategory" asp-controller="Product" asp-route-id="@item.mapId" class="light-button">
-                @item.categoryName - @item.mapId
-            </a>
-        }
+        <h5 style="margin:10px"> Sub Categories</h5>
         <div class="row">
-            <button class="form-control light-button">Add to Cart</button>
-            <button class="form-control light-button">Buy Now</button>
+            @if (@ViewBag.activeSubCatId == 0)
+            {
+                @foreach (var item in @ViewBag.subCategoryModelList)
+                {
+                    <div class="col-xl-3">
+                        <a asp-action="DetailsBySubCategory" asp-controller="Product" asp-route-id="@item.mapId">
+                            <p class="light-button" style="width:100px;padding:5px;text-align:center">@item.categoryName</p>
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                @foreach (var item in @ViewBag.subCategoryModelList)
+                {
+                    if (item.mapId == @ViewBag.activeSubCatId)
+                    {
+                        <div class="col-xl-3">
+                            <a asp-action="DetailsBySubCategory" asp-controller="Product" asp-route-id="@item.mapId">
+                                <p class="dark-button" style="width:100px;padding:5px;text-align:center">@item.categoryName</p>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-xl-3">
+                            <a asp-action="DetailsBySubCategory" asp-controller="Product" asp-route-id="@item.mapId">
+                                <p class="light-button" style="width:100px;padding:5px;text-align:center">@item.categoryName</p>
+                            </a>
+                        </div>
+                    }
+                }
+            }
         </div>
+        @if (ViewBag.ShowAddToCart == 1)
+        {
+            @if (@ViewBag.activeSubCatId == 0)
+            {
+                <div class="row">
+                    <a disabled class="form-control dark-button" style="width:150px;margin:20px;padding:10px;text-align:center">
+                        Add to Cart
+                    </a>
+                    <a disabled class="form-control dark-button" style="width:150px;margin:20px 0px;padding:10px;text-align:center">
+                        Buy Now
+                    </a>
+
+                </div>
+
+            }
+            else
+            {
+                <div class="row">
+                    <a asp-action="AddToCart" asp-controller="Product" asp-route-id="@ViewBag.activeSubCatId" class="form-control dark-button" style="width:150px;margin:20px;padding:10px;text-align:center">
+                        Add to Cart
+                    </a>
+                    <a asp-action="Orders" asp-controller="Product" asp-route-id="@ViewBag.activeSubCatId" class="form-control dark-button" style="width:150px;margin:20px 0px;padding:10px;text-align:center">
+                        Buy Now
+                    </a>
+
+                </div>
+            }
+        }
+       
+
     </div>
 </div>
 
@@ -46,7 +108,7 @@
 
 
 
-
+@*
 
 @ViewBag.CategoryNameById
 <br />
@@ -72,3 +134,4 @@
     <p>-----------------------------</p>
 }
 
+*@
