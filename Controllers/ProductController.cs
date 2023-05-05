@@ -86,7 +86,66 @@ namespace Cake_Rush.Controllers
             ViewBag.activeSubCatId = id;
             return RedirectToAction("Details", "Product", new { id = productId });
         }
-        // GET: ProductController/Create
+        public async Task<ActionResult> AddToCart(int id)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int subCatMapId = id;
+            int quantity = 1;
+            //check if the item gfor the user has been already ordered if so check if its pending
+            //=> pending means dont add & redirect to orders page
+            List<OrderModel> orderModelList = await new ApiRequests<OrderModel>().getRequest("api/Order");
+            foreach (var order in orderModelList)
+            {
+                if (order.Cart.SubCatMap.mapId == subCatMapId &&
+                    order.userId == userId &&
+                    order.orderStatus == "Pending"
+                    )
+                {
+                    return RedirectToAction("MyOrders", "User");
+                }
+            }
+            //check if the item is already present in cart and cart is not expired then add +1 to it 
+
+            List<CartModel> cartModelList = await new ApiRequests<CartModel>().getRequest("api/Cart");
+            List<CartModel> currentUserscartList = cartModelList.Where(x => x.userId == userId).ToList();
+            var cart = currentUserscartList.FirstOrDefault(x => x.mapId == subCatMapId);
+            if (cart != null && cart.expiry == 0)
+            {
+                return RedirectToAction("AddCartItemCount", "Product", new { id = cart.cartId });
+            }
+
+            // else adding as new entry
+            SubCategory subCategory = await new ApiRequests<SubCategory>().getRequestById($"api/SubCategoryMap/{subCatMapId}", subCatMapId);
+            int price = subCategory.price;
+
+            CartModel cartModel = new CartModel()
+            {
+                userId = userId,
+                mapId = subCatMapId,
+                quantity = quantity,
+                price = price,
+                expiry = 0
+            };
+            Console.WriteLine(await new ApiRequests<CartModel>().postRequest("api/Cart", cartModel));
+            return RedirectToAction("Cart");
+        }
+        public async Task<List<CartModel>> getAllCarts()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //fetching all carts
+            List<CartModel> AllCarts = await new ApiRequests<CartModel>().getRequest("api/Cart");
+            //filtering out current user's cart
+            List<CartModel> currentUserCarts = AllCarts.FindAll(x => x.userId == userId && x.expiry == 0);
+            currentUserCarts.Reverse();
+            return currentUserCarts;
+        }
+        public async Task<IActionResult> Cart()
+        {
+            //get all carts
+            List<CartModel> cartContentModelList = new List<CartModel>();
+            cartContentModelList = await getAllCarts();
+            return View(cartContentModelList);
+        }
 
     }
 }
