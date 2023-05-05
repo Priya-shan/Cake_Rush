@@ -147,5 +147,54 @@ namespace Cake_Rush.Controllers
             return View(cartContentModelList);
         }
 
+
+        public async Task<IActionResult> AddCartItemCount(int id)
+        {
+            //get current cart model
+            CartModel cartModel = await new ApiRequests<CartModel>().getRequestById($"api/Cart/{id}", id);
+            //update quantity by 1
+            int updatedQuantity = cartModel.quantity + 1;
+            cartModel.quantity = updatedQuantity;
+            //get original price from subcategory model
+            SubCategory subCategory = await new ApiRequests<SubCategory>().getRequestById($"api/SubCategoryMap/{cartModel.mapId}", cartModel.mapId);
+            //calculate total price and update the table
+            cartModel.price = subCategory.price * updatedQuantity;
+            Console.WriteLine(await new ApiRequests<CartModel>().putRequest($"api/Cart/{id}", id, cartModel));
+            return RedirectToAction("Cart");
+        }
+
+        public async Task<IActionResult> MinusCartItemCount(int id)
+        {
+            CartModel cartModel = await new ApiRequests<CartModel>().getRequestById($"api/Cart/{id}", id);
+
+            int updatedQuantity = cartModel.quantity - 1;
+            if (updatedQuantity == 0)
+            {
+                return RedirectToAction("RemoveCartItem", "Product", new { id = cartModel.cartId });
+            }
+            cartModel.quantity = updatedQuantity;
+            SubCategory subCategory = await new ApiRequests<SubCategory>().getRequestById($"api/SubCategoryMap/{cartModel.mapId}", cartModel.mapId);
+            cartModel.price = subCategory.price * updatedQuantity;
+            Console.WriteLine(await new ApiRequests<CartModel>().putRequest($"api/Cart/{id}", id, cartModel));
+            return RedirectToAction("Cart");
+        }
+        public async Task<IActionResult> RemoveCartItem(int id)
+        {
+            Console.WriteLine(await new ApiRequests<CartModel>().deleteRequest($"api/Cart/{id}", id));
+            return RedirectToAction("Cart");
+        }
+
+        public async Task<IActionResult> RemoveAllCartItems()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<CartModel> cartModels = await new ApiRequests<CartModel>().getRequest("api/Cart");
+            cartModels = cartModels.Where(x => x.userId == userId && x.expiry == 0).ToList();
+            foreach (var cart in cartModels)
+            {
+                Console.WriteLine(await new ApiRequests<CartModel>().deleteRequest($"api/Cart/{cart.cartId}", cart.cartId));
+            }
+            return RedirectToAction("Cart");
+        }
+
     }
 }
