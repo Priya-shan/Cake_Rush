@@ -196,5 +196,54 @@ namespace Cake_Rush.Controllers
             return RedirectToAction("Cart");
         }
 
+        public async Task<IActionResult> BuyNow()
+        {
+            List<CartModel> currentCartModelsList = new List<CartModel>();
+            currentCartModelsList = await getAllCarts();
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserModel currentUserData = await new ApiRequests<UserModel>().getRequestById($"api/User/{userId}", 0);
+            ViewBag.userModel = currentUserData;
+            return View(currentCartModelsList);
+        }
+
+        public async Task<IActionResult> PlaceOrder(IFormCollection form)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string message = form["message"];
+            string[] messageList = message.Split(',');
+
+            string deliveryMode = form["deliveryMode"];
+            string PaymentMode = form["paymentMode"];
+            List<CartModel> currentCartModelsList = new List<CartModel>();
+            currentCartModelsList = await getAllCarts();
+            ApiRequests<OrderModel> obj = new ApiRequests<OrderModel>();
+            int indexForMessageList = 0;
+            foreach (var item in currentCartModelsList)
+            {
+                OrderModel orderModel = new OrderModel();
+                orderModel.cartId = item.cartId;
+                orderModel.message = messageList[indexForMessageList];
+                indexForMessageList++;
+                orderModel.amount = item.price;
+                orderModel.orderStatus = "Pending";
+                DateTime currentDateTime = DateTime.Now;
+                orderModel.dateOrdered = currentDateTime;
+                orderModel.paymentMode = PaymentMode;
+                orderModel.deliveryMode = deliveryMode;
+                orderModel.userId = userId;
+                Console.WriteLine(await obj.postRequest("api/Order", orderModel));
+                //updating cart model expiry to 1
+                CartModel cartModel = await new ApiRequests<CartModel>().getRequestById($"api/Cart/{item.cartId}", item.cartId);
+                cartModel.expiry = 1;
+                Console.WriteLine(new ApiRequests<CartModel>().putRequest($"api/Cart/{item.cartId}", item.cartId, cartModel));
+                //await RemoveCartItem(orderModel.cartId);
+            }
+            // send email
+            //string mailStatus = SendOrderPlacedMail(currentCartModelsList);
+            Console.WriteLine(mailStatus);
+            return RedirectToAction("MyOrders", "User");
+        }
+
     }
 }
