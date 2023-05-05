@@ -1,69 +1,9 @@
-﻿@model IEnumerable<Cake_Rush.Models.ProductModel>
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @{
-    ViewData["Title"] = "Home Page";
 }
-<head>
-    <style>
-        .row {
-            --bs-gutter-x: 0px;
-        }
 
-        body {
-        }
-
-        .container {
-            padding: 0px !important;
-        }
-
-        .banner-small {
-            width: 200px;
-            height: 180px;
-        }
-
-        .banner {
-            width: 200px;
-            height: 180px;
-        }
-
-        h3 {
-        }
-    </style>
-
-</head>
-<div>
-    <img class="d-block w-100" style="height:260px" src="~/images/carousel_1_v2.png">
-</div>
-<div class="row">
-    <div class="col-xl-3 d-flex justify-content-center align-items-center">
-        <img src="~/images/banner_bdaycake.png" class="banner-small">
-
-    </div>
-    <div class="col-xl-3 d-flex justify-content-center align-items-center">
-        <img src="~/images/banner_cupcake.png" class="banner-small">
-    </div>
-    <div class="col-xl-3 d-flex justify-content-center align-items-center">
-        <img style="margin:10px" src="~/images/banner_bakeditems.png" class="banner">
-    </div>
-    <div class="col-xl-3 d-flex justify-content-center align-items-center" style="padding-right:0px;">
-        <img style="margin:10px; margin-right:0px;" src="~/images/banner_snacks.png" class="banner">
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xl-3 d-flex justify-content-center align-items-center">
-        <h2 class="style_nav_item" style="font-size:30px">Birthday Cakes</h2>
-
-    </div>
-    <div class="col-xl-3 d-flex justify-content-center align-items-center">
-        <h2 class="style_nav_item" style="font-size:30px">Cup Cakes</h2>
-    </div>
-    <div class="col-xl-3 d-flex justify-content-center align-items-center">
-        <h2 class="style_nav_item" style="font-size:30px">Baked Items</h2>
-    </div>
-    <div class="col-xl-3 d-flex justify-content-center align-items-center" style="padding-right:0px;">
-        <h2 class="style_nav_item" style="font-size:30px">Cookies & Snacks</h2>
-    </div>
-</div>
 
 <form method="post" asp-controller="Home" asp-action="Search" style="margin:30px 25px;">
     <div class="row">
@@ -73,7 +13,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <input type="hidden" name="form-name" value="search-form" />
-                    <input name="searchBar" class="form-control" style="background-color:var(--light-peach);border-radius:73px 0px 0px 73px" />
+                    <input name="searchBar" class="form-control" value="@ViewBag.SearchBarValue" style="background-color:var(--light-peach);border-radius:73px 0px 0px 73px" />
                     <div class="input-group-append">
                         <button type="submit" class="btn form-control" style="border-radius:0px 73px 73px 0px; background-color:var(--light-peach)">
                             <i class="material-icons">search</i>
@@ -139,6 +79,5 @@
             </div>
         </div>
     }
+
 </div>
-
-
