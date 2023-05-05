@@ -14,12 +14,12 @@ that can be delivered to their doorstep or picked up at the nearest store.
 3. **Admin can set up their profile with basic details like shop address**
 4. **Admin can view Orders Received**
 5. **Admin can update order status anytime**
-6. **Admins can view Payments**
+6. **Admin can view Payments**
 
 **User Side :**
 
 1. **Users can search for products category wise and with price range**
-2. **User can click on products for full details**
+2. **Users can click on products for full details**
 3. **Users can create an account and login to place orders**
 4. **Users can set up their profile with basic details and address to deliver products**
 5. **Users can add products to cart and manage carts efficiently**
