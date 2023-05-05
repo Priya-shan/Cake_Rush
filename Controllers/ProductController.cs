@@ -280,5 +280,21 @@ namespace Cake_Rush.Controllers
             }
             return "Mail Sent Failed";
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpdateProfile(IFormCollection form)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserModel userModel = new UserModel();
+            userModel.userId = userId;
+            userModel.userName = form["userName"];
+            userModel.mobile = form["mobile"];
+            userModel.address = form["address"];
+            userModel.city = form["city"];
+            userModel.pincode = form["pincode"];
+            userModel.email = form["email"];
+            Console.WriteLine(await new ApiRequests<UserModel>().putRequest($"api/User/{userId}", 0, userModel));
+            return RedirectToAction("BuyNow");
+        }
     }
 }
