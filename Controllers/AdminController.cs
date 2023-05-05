@@ -155,7 +155,15 @@ namespace Cake_Rush.Controllers
             return View(ordersList);
         }
 
-
+        public async Task<IActionResult> CompleteOrder(int id)
+        {
+            int orderId = id;
+            //get current order and update its status
+            OrderModel orderModel = await new ApiRequests<OrderModel>().getRequestById($"api/Order/{orderId}", orderId);
+            orderModel.orderStatus = "Completed";
+            Console.WriteLine(await new ApiRequests<OrderModel>().putRequest($"api/Order/{orderId}", orderId, orderModel));
+            return RedirectToAction("Orders");
+        }
 
     }
 }
