@@ -22,7 +22,25 @@ namespace Cake_Rush.Controllers
             return View(user);
         }
 
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpdateProfile(IFormCollection form)
+        {
+            //get user id and user details
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Console.WriteLine("user id " + userId);
+            UserModel userModel = new UserModel();
+            userModel.userId = userId;
+            userModel.userName = form["userName"];
+            userModel.mobile = form["mobile"];
+            userModel.address = form["address"];
+            userModel.city = form["city"];
+            userModel.pincode = form["pincode"];
+            userModel.email = form["email"];
+            //update user table
+            Console.WriteLine(await new ApiRequests<UserModel>().putRequest($"api/User/{userId}", 0, userModel));
+            return RedirectToAction("Index");
+        }
 
         // GET: AdminController/Details/5
         public async Task<ActionResult> AddProducts()
