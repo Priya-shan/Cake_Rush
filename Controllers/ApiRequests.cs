@@ -5,11 +5,12 @@ using System.Net.Http.Headers;
 
 namespace Cake_Rush.Controllers
 {
-    public class ApiRequests<T>:Controller
+    public class ApiRequests<T> : Controller
     {
         public string Baseurl = "https://localhost:7001/";
         public async Task<string> postRequest(string url, T model)
         {
+            Console.WriteLine("entered  post request");
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
@@ -45,9 +46,10 @@ namespace Cake_Rush.Controllers
                 return modelList;
             }
         }
-        public async Task<T> getRequestById(string url,int id)
+        public async Task<T> getRequestById(string url, int id)
         {
-            T model=default(T);
+            //Console.WriteLine("\n\n\nFinal SubCat Map Id -->" + id);
+            T model = default(T);
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
@@ -65,5 +67,48 @@ namespace Cake_Rush.Controllers
             }
             return model;
         }
+        public async Task<string> putRequest(string url, int id, T model)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var Res = await client.PutAsJsonAsync<T>(url, model);
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    return "updated successfully";
+                }
+                else
+                {
+                    return "update failed";
+                }
+            }
+
+        }
+        public async Task<string> deleteRequest(string url, int id)
+        {
+            Console.WriteLine("entered delete request");
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var response = await client.DeleteAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return "deleted successfully";
+                }
+                else
+                {
+                    return "delete failed";
+                }
+            }
+        }
+
     }
 }
